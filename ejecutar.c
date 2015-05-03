@@ -47,7 +47,6 @@ void ejecutar_linea_ordenes(const char *orden)
 	}
 	else{
 		wait(&backgr);
-		printf("El Hijo ha terminado\n");
 	}
 	return;
 }
