@@ -28,9 +28,8 @@ int main (int argc, char *argv[])
 				//printf("es externa\n"); /*para comprobar que la orden es externa*/
 				ejecutar_linea_ordenes(cadena);
 			}
-			//cadena = strtok(NULL, ";"); //pasamos al siguiente tokens y portanto la siguiente orden
-			salida = main(argc, argv);
-			if (salida == 0) continuar = false;
+			cadena = strtok(NULL, ";"); //pasamos al siguiente tokens y portanto la siguiente orden
+			salida = 0;
 		}
 		else {
 			continuar = false;
