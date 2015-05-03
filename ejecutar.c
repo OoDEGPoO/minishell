@@ -26,8 +26,8 @@ pid_t ejecutar_orden (const char *orden, int *pbackgr)
 	else{/*Esto es el padre, ya que el pid de este es 0*/
 		/*printf("soy el padre\n");*//*comprobación*/
 	}
-	return pid;
 	free_argumentos(args);
+	return pid;
 }
  
 void ejecutar_linea_ordenes(const char *orden)
@@ -41,13 +41,16 @@ void ejecutar_linea_ordenes(const char *orden)
 
 
 	pid = ejecutar_orden(orden,&backgr);		
- 	if (backgr!=0){/*si se usa ampersand el proceso hijo se debe ejecutar en segundo plano*/
-		waitpid(pid,&backgr,WNOHANG);
-		printf("Se está ejecutando en segundo plano, puede continuar usando la minishell mientras.\n");
-	}
-	else{/*no se habrá usado el símbolo ampersand, por lo que la minishell padre debe esperar a que acabe el proceso hijo*/
-		wait(NULL);
-		printf("El Hijo ha terminado\n");
+ 	if (pid==0) ;
+	else {
+		if (backgr!=0) {
+			waitpid(pid,&backgr,WNOHANG);
+			printf("Se está ejecutando en segundo plano, puede continuar usando la minishell mientras.\n");
+		}
+		else{
+			wait(NULL);
+			printf("El Hijo ha terminado\n");
+		}
 	}
 	return;
 }   
