@@ -20,11 +20,11 @@ pid_t ejecutar_orden (const char *orden, int *pbackgr)
    /* ambito de esta practica, el codigo para tratamiento de esas redirecciones.*/                     
 
 	pid = fork();/*Crea el proceso hijo*/
-	if (pid!=0){/*Esto es el Hijo, ya que el pid 0 corresponde al padre*/
-		execvp(*args, args);
-	}
-	else{/*Esto es el padre, ya que el pid de este es 0*/
+	if (pid!=0){/*Esto es el padre, ya que el pid 0 corresponde al hijo*/
 		/*printf("soy el padre\n");*//*comprobación*/
+	}
+	else{/*Esto es el Hijo, ya que el pid de este es 0*/
+		execvp(args[0], args);
 	}
 	free_argumentos(args);
 	return pid;
@@ -40,17 +40,14 @@ void ejecutar_linea_ordenes(const char *orden)
       
 
 
-	pid = ejecutar_orden(orden,&backgr);		
- 	if (pid==0) ;
-	else {
-		if (backgr!=0) {
-			waitpid(pid,&backgr,WNOHANG);
-			printf("Se está ejecutando en segundo plano, puede continuar usando la minishell mientras.\n");
-		}
-		else{
-			wait(NULL);
-			printf("El Hijo ha terminado\n");
-		}
+	pid = ejecutar_orden(orden,&backgr);
+	if (backgr!=0) {
+		waitpid(pid,&backgr,WNOHANG);
+		printf("Se está ejecutando en segundo plano, puede continuar usando la minishell mientras.\n");
+	}
+	else{
+		wait(&backgr);
+		printf("El Hijo ha terminado\n");
 	}
 	return;
-}   
+}
