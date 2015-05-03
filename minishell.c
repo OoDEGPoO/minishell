@@ -11,9 +11,8 @@ int main (int argc, char *argv[])
 
    char buf[BUFSIZ];
    char *cadena; /*string para almacenar las ordenes introducidas*/
-   bool continuar = true; /*Booleano para cuando se introduzca exit terminar la ejecución*/
 
-   while (continuar)
+   while (1)
    {
    	imprimir_prompt(); /*Imprime el prompt*/
 	leer_linea_ordenes(buf); /*lee la linea de ordena untroducida*/
@@ -29,10 +28,11 @@ int main (int argc, char *argv[])
 			}
 		}
 		else {
-			continuar = false;
+			return 0;
 		}
 		cadena = strtok(NULL, ";"); //pasamos al siguiente tokens y portanto la siguiente orden
 	}
+	fflush(stdin);
    }
 
    return 0;
