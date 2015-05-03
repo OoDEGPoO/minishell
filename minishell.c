@@ -33,9 +33,8 @@ int main (int argc, char *argv[])
 		cadena = strtok(NULL, ";"); //pasamos al siguiente tokens y portanto la siguiente orden
 	}
 	fflush(stdin);
+	cadena = NULL;
    }
 
    return 0;
 }
-
-
