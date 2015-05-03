@@ -21,14 +21,13 @@ pid_t ejecutar_orden (const char *orden, int *pbackgr)
 
 	pid = fork();/*Crea el proceso hijo*/
 	if (pid!=0){/*Esto es el Hijo, ya que el pid 0 corresponde al padre*/
-		if (execvp(*args, args)) exit(1);
-		else exit(0);
+		execvp(*args, args);
 	}
 	else{/*Esto es el padre, ya que el pid de este es 0*/
 		/*printf("soy el padre\n");*//*comprobación*/
 	}
-	free_argumentos(args);
 	return pid;
+	free_argumentos(args);
 }
  
 void ejecutar_linea_ordenes(const char *orden)
